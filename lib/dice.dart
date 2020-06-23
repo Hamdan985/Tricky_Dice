@@ -26,6 +26,7 @@ class _DiceState extends State<Dice> {
 
   void cheat() {
     print('inside cheat');
+    //TODO : 1 - add modalBottomSheet here with input for the cheat number
   }
 
   @override
