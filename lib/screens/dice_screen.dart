@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:numberpicker/numberpicker.dart';
 
 class DiceScreen extends StatefulWidget {
   @override
@@ -34,70 +35,6 @@ class _DiceScreenState extends State<DiceScreen> {
     });
   }
 
-  void handleChange() {
-    setState(() {
-      print(leftDiceNumber);
-      print(rightDiceNumber);
-      isCheatActivated = true;
-    });
-  }
-
-  void cheat(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: MediaQuery.of(context).size.height * 0.5,
-            color: Colors.deepOrangeAccent,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          cheatLeftNumber = int.parse(value);
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          cheatRightNumber = int.parse(value);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  alignment: Alignment.bottomRight,
-                  child: RaisedButton(
-                    color: Colors.greenAccent,
-                    onPressed: () {
-                      Navigator.pop(context);
-                      handleChange();
-                    },
-                    child: Text('Cheat'),
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +42,7 @@ class _DiceScreenState extends State<DiceScreen> {
         title: Text('Tricky Dice!'),
         backgroundColor: Colors.deepOrangeAccent,
         centerTitle: true,
+        elevation: 1.0,
       ),
       backgroundColor: Colors.deepOrangeAccent,
       body: Column(
@@ -112,8 +50,8 @@ class _DiceScreenState extends State<DiceScreen> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              dieFace(leftDiceNumber),
-              dieFace(rightDiceNumber),
+              dieFace(leftDiceNumber, 'left'),
+              dieFace(rightDiceNumber, 'right'),
             ],
           ),
         ],
@@ -121,14 +59,47 @@ class _DiceScreenState extends State<DiceScreen> {
     );
   }
 
-  Expanded dieFace(int diceNumber) {
+  Expanded dieFace(int diceNumber, String position) {
     return Expanded(
       child: FlatButton(
         child: Image.asset('assets/images/dice$diceNumber.png'),
         onPressed: diceChange,
-        onLongPress: () => cheat(context),
         padding: EdgeInsets.all(0),
+        onLongPress: () => _cheatDialog(position),
       ),
     );
+  }
+
+  _cheatDialog(String position) {
+    showDialog<int>(
+        context: context,
+        builder: (BuildContext context) {
+          return NumberPickerDialog.integer(
+            title: Text("Pick $position number"),
+            highlightSelectedValue: true,
+            zeroPad: true,
+            minValue: 1,
+            maxValue: 6,
+            initialIntegerValue: 1,
+          );
+        }).then((value) {
+      if (value != null) {
+        setState(() {
+          if (position == 'left') {
+            cheatLeftNumber = value;
+          } else {
+            cheatRightNumber = value;
+          }
+
+          print('left = $cheatLeftNumber');
+          print('right = $cheatRightNumber');
+
+          if (cheatLeftNumber != null && cheatRightNumber != null) {
+            isCheatActivated = true;
+            // diceChange();
+          }
+        });
+      }
+    });
   }
 }
