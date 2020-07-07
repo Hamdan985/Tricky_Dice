@@ -3,7 +3,7 @@
 A regular randomiser dice with some cheating functionality.
 
 ## Demo 
-![Tricky Dice FLutter - Animated gif demo](demoTrickyDiceExample.gif)
+![Tricky Dice FLutter - Animated gif demo](TrickyDiceExample.gif)
 
 ### Dependencies
 
