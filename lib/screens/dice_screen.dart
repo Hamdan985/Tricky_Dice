@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import '../unique_color.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class DiceScreen extends StatefulWidget {
@@ -15,6 +16,8 @@ class _DiceScreenState extends State<DiceScreen> {
   int cheatLeftNumber;
   int cheatRightNumber;
 
+  Color randomColour;
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +27,7 @@ class _DiceScreenState extends State<DiceScreen> {
 
   void diceChange() {
     setState(() {
+      randomColour = UniqueColorGenerator.getColor();
       if (!isCheatActivated) {
         leftDiceNumber = Random().nextInt(6) + 1;
         rightDiceNumber = Random().nextInt(6) + 1;
@@ -40,11 +44,11 @@ class _DiceScreenState extends State<DiceScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tricky Dice!'),
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: randomColour,
         centerTitle: true,
         elevation: 1.0,
       ),
-      backgroundColor: Colors.deepOrangeAccent,
+      backgroundColor: randomColour,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -87,8 +91,10 @@ class _DiceScreenState extends State<DiceScreen> {
         setState(() {
           if (position == 'left') {
             cheatLeftNumber = value;
+            cheatRightNumber = rightDiceNumber;
           } else {
             cheatRightNumber = value;
+            cheatLeftNumber = leftDiceNumber;
           }
 
           print('left = $cheatLeftNumber');
@@ -96,7 +102,6 @@ class _DiceScreenState extends State<DiceScreen> {
 
           if (cheatLeftNumber != null && cheatRightNumber != null) {
             isCheatActivated = true;
-            // diceChange();
           }
         });
       }
