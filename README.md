@@ -1,16 +1,23 @@
-# tricky_dice
+# Tricky Dice
 
-A new Flutter project.
+A regular randomiser dice with some cheating functionality.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-A few resources to get you started if this is your first Flutter project:
+### Dependencies
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+External packages used to build this project
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+numberpicker: ^1.2.0
+```
+
+### How it Works
+
+For a normal randomised dice roll, tap on any of the die face to randomise both the die.
+
+For the cheating functionality hold down any die face and select the number you want to show on 
+
+your next die roll.
