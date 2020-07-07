@@ -2,9 +2,8 @@
 
 A regular randomiser dice with some cheating functionality.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+## Demo 
+![Tricky Dice FLutter - Animated gif demo](demoTrickyDiceExample.gif)
 
 ### Dependencies
 
@@ -21,3 +20,7 @@ For a normal randomised dice roll, tap on any of the die face to randomise both 
 For the cheating functionality hold down any die face and select the number you want to show on 
 
 your next die roll.
+
+
+
+
